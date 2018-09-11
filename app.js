@@ -1,17 +1,17 @@
 import express from 'express';
-import db from './db/db';
+import bodyParser from 'body-parser';
+import router from './routes';
 
 // Set up the express app
 const app = express();
 
-// get all todos
-app.get('/api/v1/todos', (req, res) => {
-  res.status(200).send({
-    success: 'true',
-    message: 'todos retrieved successfully',
-    todos: db
-  });
-});
+// Parse incoming requests data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+// Router Middleware 
+app.use(router);
+
+// --------- LISTENER ------------------
 
 const PORT = 5000;
 
